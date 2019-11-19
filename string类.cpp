@@ -26,7 +26,7 @@ s.compare (pos,n, s2);
 若参与比较的两个串值相同，则函数返回 0；若字符串 S 按字典顺序要先于 S2，则返回负值；反之，则返回正值;
 
 
-	string A ("aBcdef");
+	  string A ("aBcdef");
     string B ("AbcdEf");
     string C ("123456");
     string D ("123dfg");
