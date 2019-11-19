@@ -159,6 +159,33 @@ T 类型值的初始化列表是std::initializer_list<T>，所以这里的 list 
 
 erase():
 
+iterator erase (const_iterator position);
+iterator erase (const_iterator first, const_iterator last);
+如果是删除指定位置的元素时：返回值是一个迭代器，指向删除元素下一个元素;如果是删除某范围内的元素时：返回值也表示一个迭代器，指向最后一个删除元素的下一个元素
+
+remove():
+
+remove() 算法由定义在 algorithm 头文件中的模板生成，它可以删除匹配特定值的一段元素。例如：
+
+std::vector<std::string> words { "one", "none","some", "all", "none", "most","many"};
+auto iter = std::remove(std::begin(words), std::end(words), "none");
+第二条语句在头两个参数指定的元素范围内，移除了所有匹配 remove() 的第三个参数 string("none") 的元素。移除元素这个表述有一点误导，
+remove() 是一个全局函数，所以它不能删除容器中的元素。
+remove() 移除元素的方式和从字符串中移除空格的方式相似，都是通过用匹配元素右边的元素来覆盖匹配元素的方式移除元素
+
+如果在 remove() 操作后输出 words 中的元素，只会输出前 5 个元素。尽管 size() 返回的值仍然是 7，而且最后两个元素仍然存在，
+但是它们被替换成了空字符串对象。为了摆脱这些多余的元素，可以使用成员函数 erase()。
+
+remove() 返回的迭代器可以这样使用：
+words.erase(iter, std::end(words));//Remove surplus elements
+
+这被叫作 erase-remove，执行删除操作后，iter 指向最后一个元素之后的位置，所以它标识了被删除序列的第一个元素，
+被删除序列的结束位置由 std::end(words) 指定。当然，在一条语句中，也能先移除元素，然后再删除末尾不想要的元素：
+
+words.erase(std::remove(std::begin(words), std::end(words),"none"), std::end(words));
+remove() 算法返回的迭代器作为 erase() 的第一个参数，erase() 的第二个参数是所指向容器中最后一个元素后一个位置的迭代器。
+
+
 
 
 
