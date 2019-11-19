@@ -66,7 +66,7 @@ erase():
 	(2)erase(position);删除position处的一个字符(position是个string类型的迭代器)
 	(3)erase(first,last);删除从first到last之间的字符（first和last都是迭代器）
 
-	string str ("This is an example phrase.");
+	  string str ("This is an example phrase.");
   	string::iterator it;
 
   	// 第(1)种用法
