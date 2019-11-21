@@ -79,6 +79,12 @@ words.emplace_back(str, 2, 3);
 emplace_back() 函数会调用接收三个参数的 string 构造函数，生成 string 对象，然后把它添加到 words 序列中。
 构造函数会生成一个从索引 2 幵始、包含 str 中三个字符的子串。
 
+assign():
+
+void assign(const_iterator first,const_iterator last);
+void assign(size_type n,const T& x = T());
+功能： //将区间[first,last)(前闭后开)的元素赋值到当前的vector容器中，或者赋n个值为x的元素到vector容器中，这个容器会清除掉vector容器中以前的内容。
+
 5.插入元素
 
 	std::vector<std::string> words {"first", "second"};
