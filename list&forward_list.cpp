@@ -1,21 +1,22 @@
 1.
 list 容器有一个拷贝构造函数，因此可以生成一个现有 list 容器的副本：
-list<double> save_values {values}; //初始化列表中的迭代器可以代表任意容器的一段元素，而不仅仅只是 list 容器。
+	list<double> save_values {values}; //初始化列表中的迭代器可以代表任意容器的一段元素，而不仅仅只是 list 容器。
 
 2.
-auto iter = begin(data);
-advance(iter, 9); // Increase iter by 9, 定义在 iterator 头文件中的全局函数
-data.insert(iter, 3, 88);// Insert 3 copies of 88 starting at the 10th
+	auto iter = begin(data);
+	advance(iter, 9); // Increase iter by 9, 定义在 iterator 头文件中的全局函数
+	data.insert(iter, 3, 88);// Insert 3 copies of 88 starting at the 10th
 
 3.
-vector<int> numbers(10, 5)/ // Vector of 10 elements with value 5
-data.insert(--(--end(data)), cbegin(numbers), cend(numbers));
-insert() 的第一个参数是一个迭代器，它指向 data 的倒数第二个元素。
+	vector<int> numbers(10, 5)/ // Vector of 10 elements with value 5
+	data.insert(--(--end(data)), cbegin(numbers), cend(numbers));
+	insert() 的第一个参数是一个迭代器，它指向 data 的倒数第二个元素。
 第二和第三个参数指定了 number 中被插入元素的范围，因此从 data 中倒数第二个元素开始，依次插入 vector 的全部元素。
 
 4.
 有三个函数可以在 list 容器中直接构造元素：emplace() 在迭代器指定的位置构造一个元素；
-emplace_front() 在 list 的第一个元素之前构造元素；emplace_back() 在 list 的尾部元素之后构造元素。
+emplace_front() 在 list 的第一个元素之前构造元素；
+emplace_back() 在 list 的尾部元素之后构造元素。
 
     list<std:: string> names {"Jane", "Jim", "Jules", "Janet"};
     names.emplace_back("Ann");
@@ -28,19 +29,19 @@ emplace_front() 在 list 的第一个元素之前构造元素；emplace_back() �
 5.删除元素
 
 remove():
-list<int> numbers { 2, 5, 2, 3, 6, 7, 8, 2, 9};
-numbers.remove(2); // List is now 5 3 6 7 8 9, 移除了 numbers 中出现的所有值等于 2 的元素。
+	list<int> numbers { 2, 5, 2, 3, 6, 7, 8, 2, 9};
+	numbers.remove(2); // List is now 5 3 6 7 8 9, 移除了 numbers 中出现的所有值等于 2 的元素。
 
 remove_if():
 成员函数 remove_if() 期望传入一个一元断言作为参数。
 一元断言接受一个和元素同类型的参数或引用，返回一个布尔值。断言返回 true 的所有元素都会被移除。
-numbers.remove_if([](int n){return n%2 == 0;});// Remove even numbers. 
+	numbers.remove_if([](int n){return n%2 == 0;});// Remove even numbers. 
 
 unique():
 成员函数 unique() 非常有意思，它可以移除连续的重复元素，只留下其中的第一个。返回迭代器，迭代器指向的是重复元素的首地址
 
-list<string> words { "one", "two", "two", "two","three", "four", "four"};
-words.unique () ; // Now contains "one" "two" "three" "four"
+	list<string> words { "one", "two", "two", "two","three", "four", "four"};
+	words.unique () ; // Now contains "one" "two" "three" "four"
 可以在对元素进行排序后，再使用 unique()，这样可以保证移除序列中全部的重复元素。
 
 在STL中unique函数是一个去重函数, 其实它并不真正把重复的元素删除，
@@ -117,12 +118,12 @@ names.sort([](const std::strings s1, const std::strings s2)
 只有链接它们的指针变了。在合并的过程中，两个容器中的元素使用 operator()() 进行比较。
 
 在另一个版本的 merge() 函数中，可以提供一个比较函数作为该函数的第二个参数，用来在合并过程中比较元素。例如：
-list<string> my_words { "three","six", "eight"};
-list<string> your_words { "seven", "four", "nine"};
-auto comp_str = [](const strings s1, const strings s2){ return s1[0]<s2[0];};
-my_words.sort (comp_str); //"eight" "six" "three"
-your_words.sort (comp_str) ;  //"four" "nine" "seven"
-my_words.merge (your_words, comp_str) ; // "eight" "four" "nine" "six" "seven" "three"
+	list<string> my_words { "three","six", "eight"};
+	list<string> your_words { "seven", "four", "nine"};
+	auto comp_str = [](const strings s1, const strings s2){ return s1[0]<s2[0];};
+	my_words.sort (comp_str); //"eight" "six" "three"
+	your_words.sort (comp_str) ;  //"four" "nine" "seven"
+	my_words.merge (your_words, comp_str) ; // "eight" "four" "nine" "six" "seven" "three"
 这里的字符串对象比较函数是由 lambda 表达式定义的，这个表达式只比较第一个字符。比较的效果是，在合并的 list 容器中，"six”在”seven"之前。
 在上面的代码中，也可以无参调用 merge()，这样"seven"会在"six"之前，这是一般的排序。
 
@@ -199,6 +200,5 @@ forward_list 包含成员函数splice_after() 和 insert_after()，用来代替 
 另一个版本的 splice_after() 会将一个 forward_list<T> 容器的全部元素粘接到另一个容器中：
 	my_words.splice_after(my_words.before_begin(), your_words);
 上面的代码会将 your_words 中的全部元素拼接到第一个元素指定的位置。
-
 
 forward_list 和 list —样都有成员函数 sort() 和 merge()，它们也都有 remove()、remove_if() 和unique()，所有这些函数的用法都和 list 相同。
