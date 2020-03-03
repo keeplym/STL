@@ -11,6 +11,11 @@
 
 	sort(std::begin(numbers), std::end(numbers), std::greater<>());
 
+Complexity:
+On average, linearithmic in the distance between first and last: 
+Performs approximately N*log2(N) (where N is this distance) 
+comparisons of elements, and up to that many element swaps (or moves).
+
 
 
 

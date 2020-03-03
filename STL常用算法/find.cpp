@@ -14,6 +14,9 @@ find 算法会返回一个指向被找到对象的迭代器，如果没有找到
 	}
 	std::cout << five << " was found " << count << " times." << std::endl; // 3 times
 
+Complexity:
+Up to linear in the distance between first and last: Compares elements until a match is found
+
 2.find_if()
 ind_if() 同 find() 一样，为在输入迭代器所定义的范围内查找单个对象的算法，它可以在前两个参数指定的范围内查找可以使第三个参数指定的谓词返回 true 的第一个对象。
 谓词不能修改传给它的对象。
